@@ -1,4 +1,32 @@
+import os
+
 failed_attempts = 0
+history = []
+
+def load_inventory():
+
+    if os.path.exists("inventory.txt"):
+        file = open("inventory.txt", "r")
+        line = file.readline().strip()
+        file.close()
+
+        if line:
+
+            for item in line.split(","):
+
+                parts = item.strip
+
+            product_id = int(parts[0])
+            product_name = parts[1]
+            inventory = int(parts[2])
+            
+            return product_id, product_name, inventory
+
+    product_id = 1
+    product_name = get_valid_input("product_name")
+    return product_id, product_name, 0
+
+
 
 def get_valid_input ():
 
