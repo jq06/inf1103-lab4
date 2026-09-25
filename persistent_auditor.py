@@ -19,35 +19,47 @@ def load_inventory():
             product_id = int(parts[0])
             product_name = parts[1]
             inventory = int(parts[2])
-            
+
             return product_id, product_name, inventory
 
     product_id = 1
     product_name = get_valid_input("product_name")
     return product_id, product_name, 0
 
+def save_inventory(product_id, product_name, inventory):
+
+    file = open("inventory.txt", "w")
+    file.write(f"{product_id}, {product_name}, {inventory}\n")
+    
+    file.close()
 
 
-def get_valid_input ():
+def get_valid_input(input_type="stock"):
+    global failed_attempts
 
-    while True:
+    if input_type == "product_name":
+        while True:
+            val = input("Enter product name: ").strip()
+            if val:
+                return val
+            print("Product Name cannot be empty.")
 
-        global failed_attempts
-        stock = input("Enter stock quantity of type 'quit' to finish: ")
+    # 2. Handle Stock quantity input (default behavior)
+    elif input_type == "stock":
+        while True:
+            stock = input("Enter stock quantity or type 'quit' to finish: ").strip()
 
-        if stock == "quit":
-            return "quit" 
-       
-        while stock.isdigit() == False or int(stock) < 0:
-            failed_attempts += 1
-            
-            stock = input("Invalid input. Please enter a whole number: ")
+            if stock.lower() == "quit":
+                return "quit"
 
-            if stock == "quit":
-                return "quit" 
-            
+            while not stock.isdigit() or int(stock) < 0:
+                failed_attempts += 1
+                stock = input("Invalid input. Please enter a whole number: ").strip()
 
-        return int(stock)
+                if stock.lower() == "quit":
+                    return "quit"
+
+            return int(stock)
 
 def process_delivery(current_total, new_value):
 
