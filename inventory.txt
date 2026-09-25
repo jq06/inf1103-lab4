@@ -1,2 +1,7 @@
-1, pen, 40
-2, eraser, 26
+1, pen, 86
+2, pencil, 1
+
+HISTORY
+1, pen, 36, 36
+1, pen, 50, 86
+2, pencil, 1, 1
